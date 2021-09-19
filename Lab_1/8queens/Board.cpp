@@ -8,6 +8,7 @@ bool Board::correctIndex(int i, int j)
     return (i >= 0 && i < size && j >= 0 && j < size);
 }
 
+
 Board::Board()
 {
     size = 8;
@@ -46,8 +47,9 @@ char Board::getIndex(int i, int j)
     try
     {
         if (!correctIndex(i, j))
-            return matr[i][j];
-        throw "Getting matrix index out of range";
+            throw "Getting matrix index out of range";
+        return matr[i][j];
+        
     }
     catch (const char* exception)
     {
@@ -61,9 +63,8 @@ void Board::setIndex(int i, int j, char value)
     try
     {
         if (!correctIndex(i, j))
-            matr[i][j] = value;
-        else
             throw "Setting matrix index out of range";
+        matr[i][j] = value;                    
     }
     catch (const char* exception)
     {
@@ -213,4 +214,23 @@ int Board::getConflict(int i, int j)
     } 
 
     return confNum;
+}
+
+
+void Board::moveFigure(int i)
+{
+    for (size_t j = 0; j < size; j++)
+    {
+        if (matr[i][j] == '*')
+        {
+            matr[i][j] = '0';
+            int col = j + 1;
+            if (col == 8)
+            {
+                col = 0;
+            }
+            matr[i][col] = '*';
+            break;
+        }
+    }   
 }

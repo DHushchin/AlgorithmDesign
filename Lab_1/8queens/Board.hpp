@@ -23,4 +23,5 @@ public:
     int getSize();
     int conflictNumber();
     int getConflict(int i, int j);
+    void moveFigure(int i);
 };

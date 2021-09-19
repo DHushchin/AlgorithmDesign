@@ -9,10 +9,11 @@ class Tree
 {
 private:
 	Node node;
-	vector<Node*> children;
+	vector<Node> children;
 	int limit;
 public:
 	Tree();
 	void expand();
 	Node getNode();
+	void IDS();
 };

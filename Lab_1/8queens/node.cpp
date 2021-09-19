@@ -7,12 +7,14 @@ Node::Node()
 	state = State::opened;
 	depth = 1;
 	board.generateQueens();
-	//isSolved = this->board.conflictNumber();
+	this->isSolved = !(this->board.conflictNumber());
 }
 
-Board Node::getBoard()
+Node::Node(Node& other)
 {
-	return this->board;
+	this->state = State::opened;
+	this->depth = other.depth + 1;
+	this->board = Board(other.board);
 }
 
 void Node::changeState()
