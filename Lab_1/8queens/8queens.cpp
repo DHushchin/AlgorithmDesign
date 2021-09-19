@@ -1,11 +1,12 @@
 ﻿#include <iostream>
-#include "Matrix.hpp"
+#include "Tree.hpp"
 
 using namespace std;
 
 int main()
 {
-    Matrix matr;
-    matr.print();
+    Tree tree;
+    tree.getNode().getBoard().print();
+    cout << tree.getNode().getBoard().conflictNumber() << endl;
     return 0;
 }

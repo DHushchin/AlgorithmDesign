@@ -1,20 +1,22 @@
 #pragma once
-#include "Matrix.hpp"
+#include "Board.hpp"
 
 using namespace std;
 
 class Node {
 private:
-	enum class State 
+	enum class State
 	{
 		opened, closed
 	};
 
 	State state;
 	int depth;
-	Matrix board;
-
+	Board board;
+	bool isSolved;
 public:
 	Node();
+	Board getBoard();
+	void changeState();
 };
 

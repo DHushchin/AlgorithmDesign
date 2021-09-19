@@ -1,6 +1,7 @@
 #pragma once
-#include "node.hpp"
+#include "Node.hpp"
 #include <string>
+#include <vector>
 
 using namespace std;
 
@@ -8,9 +9,10 @@ class Tree
 {
 private:
 	Node node;
-	Node* children;
+	vector<Node*> children;
 	int limit;
 public:
 	Tree();
 	void expand();
+	Node getNode();
 };

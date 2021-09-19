@@ -140,13 +140,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="8queens.cpp" />
-    <ClCompile Include="node.cpp" />
-    <ClCompile Include="tree.cpp" />
+    <ClCompile Include="Board.cpp" />
+    <ClCompile Include="Node.cpp" />
+    <ClCompile Include="Tree.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Matrix.hpp" />
-    <ClInclude Include="node.hpp" />
-    <ClInclude Include="tree.hpp" />
+    <ClInclude Include="Board.hpp" />
+    <ClInclude Include="Node.hpp" />
+    <ClInclude Include="Tree.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

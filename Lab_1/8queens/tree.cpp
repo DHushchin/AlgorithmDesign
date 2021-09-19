@@ -1,18 +1,27 @@
-#include "tree.hpp"
+#include "Tree.hpp"
 
 using namespace std;
 
 Tree::Tree()
 {
 	limit = 1;
-	node = Node();
-	children = new Node[56];
+	children = vector<Node*>(56);
 }
 
 void Tree::expand()
 {	
-	for (size_t i = 0; i < 56; i++)
+	/*
+	for (size_t i = 0; i < this->node.getBoard().getSize(); i++)
 	{
-
+		for (size_t j = 0; j < this->node.getBoard().getSize(); i++)
+		{
+			
+		}
 	}
+	*/
+}
+
+Node Tree::getNode()
+{
+	return this->node;
 }
