@@ -14,11 +14,16 @@ private:
 	State state;
 	int depth;
 	Board board;
-	bool isSolved;
+public:
+	vector<Node*> children;
+	
 public:
 	Node();
 	Node(Node& other);
 	void changeState();
+	bool IsSolved();
+	void expand();
+
 public:
     State getState() const { return state; }
     void setState(State state) { this->state = state; }
@@ -26,9 +31,10 @@ public:
     int getDepth() const { return depth; }
     void setDepth(int depth) { this->depth = depth; }
 
-    Board getBoard() const { return board; }
+    Board getBoard() const { return this->board; }
     void setBoard(Board board) { this->board = board; }
 
-    bool getIsSolved() const { return isSolved; }
-    void setIsSolved(bool isSolved) { this->isSolved = isSolved; }
+    vector<Node*> getChildren() const { return this->children; }
+    void setChildren(vector<Node*> children) { this->children = children; }
+
 };

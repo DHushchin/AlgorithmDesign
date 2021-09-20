@@ -6,8 +6,8 @@ using namespace std;
 int main()
 {
     Tree tree;
-    tree.getNode().getBoard().print();
-    cout << tree.getNode().getBoard().conflictNumber() << endl;
-    tree.expand();
+    tree.getRoot()->getBoard().print();
+    cout << tree.getRoot()->getBoard().conflictNumber() << endl;
+    tree.IDS();
     return 0;
 }

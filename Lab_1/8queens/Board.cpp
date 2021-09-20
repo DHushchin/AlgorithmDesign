@@ -11,7 +11,7 @@ bool Board::correctIndex(int i, int j)
 
 Board::Board()
 {
-    size = 8;
+    size = 4;
     matr = vector<vector<char>>(size);
 
     for (size_t i = 0; i < size; i++)
@@ -36,7 +36,7 @@ void Board::generateQueens()
     srand(time(NULL));
     for (size_t i = 0; i < size; i++)
     {
-        size_t j = rand() % 8;
+        size_t j = rand() % size;
         matr[i][j] = '*';
     }
 }
@@ -217,19 +217,19 @@ int Board::getConflict(int i, int j)
 }
 
 
-void Board::moveFigure(int i)
+void Board::moveFigure(int& row, int& shift) // works well
 {
     for (size_t j = 0; j < size; j++)
     {
-        if (matr[i][j] == '*')
+        if (matr[row][j] == '*')
         {
-            matr[i][j] = '0';
-            int col = j + 1;
-            if (col == 8)
+            matr[row][j] = '0';
+            int col = j + shift;
+            if (col >= size)
             {
-                col = 0;
+                col -= size;
             }
-            matr[i][col] = '*';
+            matr[row][col] = '*';
             break;
         }
     }   

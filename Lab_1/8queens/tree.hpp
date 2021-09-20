@@ -8,12 +8,11 @@ using namespace std;
 class Tree
 {
 private:
-	Node node;
-	vector<Node> children;
-	int limit;
+	Node* root;
+	
 public:
 	Tree();
-	void expand();
-	Node getNode();
+	Node* getRoot();
 	void IDS();
+	bool LDFS(Node* root, int& depthLimit);
 };
