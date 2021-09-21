@@ -1,5 +1,6 @@
 #include "Tree.hpp"
-
+#include <queue>
+#include <algorithm>
 using namespace std;
 
 Tree::Tree()
@@ -42,11 +43,50 @@ bool Tree::LDFS(Node* node, int& limit)
 		node->expand();
 		for (size_t elem = 0; elem < node->getChildren().size(); elem++)
 		{
-			if (LDFS(node->children[elem], limit))
+			if (LDFS(node->getChildren()[elem], limit))
 			{
 				return true;
 			}
 		}
 	}
 	return false;
+}
+
+void Tree::AStar()
+{
+	
+	priority_queue <Node*, vector<Node*>, mycompare> opened;
+	//typedef std::priority_queue<Node*, std::vector<Node*>, mycomparison> pq;
+	//pq opened(mycomparison(true));
+	vector<Board> closed;
+	opened.push(root);
+	while (!opened.empty())
+	{
+		opened.top()->getBoard().print();
+		cout << "Depth: " << opened.top()->getDepth() << endl;
+
+		if (opened.top()->IsSolved())
+		{
+			opened.top()->getBoard().print();
+			cout << "Depth: " << opened.top()->getDepth() << endl;
+			break;
+		}
+
+		closed.push_back(opened.top()->getBoard());
+		opened.top()->expand();
+		vector<Node*> temp = opened.top()->getChildren();
+		opened.pop();
+		for (size_t i = 0; i < temp.size(); i++)
+		{
+			for (size_t j = 0; j < closed.size(); j++)
+			{
+				if (temp[i]->getBoard() == closed[j])
+				{
+					continue;
+				}
+			}
+			
+			opened.push(temp[i]);
+		}
+	}
 }

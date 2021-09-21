@@ -8,6 +8,6 @@ int main()
     Tree tree;
     tree.getRoot()->getBoard().print();
     cout << tree.getRoot()->getBoard().conflictNumber() << endl;
-    tree.IDS();
+    tree.AStar();
     return 0;
 }

@@ -9,10 +9,10 @@ class Tree
 {
 private:
 	Node* root;
-	
+	bool LDFS(Node* root, int& depthLimit);
 public:
 	Tree();
 	Node* getRoot();
 	void IDS();
-	bool LDFS(Node* root, int& depthLimit);
+	void AStar();
 };

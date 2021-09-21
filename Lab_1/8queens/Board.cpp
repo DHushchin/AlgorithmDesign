@@ -21,6 +21,8 @@ Board::Board()
             this->matr[i].push_back('0');
         }
     }
+
+    conf = this->conflictNumber();
 }
 
 
@@ -232,5 +234,6 @@ void Board::moveFigure(int& row, int& shift) // works well
             matr[row][col] = '*';
             break;
         }
-    }   
+    }  
+    conf = this->conflictNumber();
 }

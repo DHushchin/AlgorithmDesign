@@ -5,28 +5,17 @@ using namespace std;
 
 class Node {
 private:
-
-	enum class State
-	{
-		opened, closed
-	};
-
-	State state;
 	int depth;
 	Board board;
-public:
 	vector<Node*> children;
-	
+
 public:
 	Node();
 	Node(Node& other);
-	void changeState();
 	bool IsSolved();
 	void expand();
 
 public:
-    State getState() const { return state; }
-    void setState(State state) { this->state = state; }
 
     int getDepth() const { return depth; }
     void setDepth(int depth) { this->depth = depth; }
@@ -37,4 +26,14 @@ public:
     vector<Node*> getChildren() const { return this->children; }
     void setChildren(vector<Node*> children) { this->children = children; }
 
+};
+
+struct mycompare {
+	bool operator()(const Node* first, const Node* second) {
+		if (first->getBoard().conflictNumber() != second->getBoard().conflictNumber())
+		{
+			return first->getBoard().conflictNumber() > second->getBoard().conflictNumber();
+		}
+		return first->getDepth() > second->getDepth();
+	};
 };

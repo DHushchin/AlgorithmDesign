@@ -4,7 +4,6 @@ using namespace std;
 
 Node::Node()
 {
-	state = State::opened;
 	depth = 1;
 	this->board.generateQueens();
 	children = vector<Node*>(this->getBoard().getSize() * (this->getBoard().getSize() - 1));
@@ -12,15 +11,9 @@ Node::Node()
 
 Node::Node(Node& other)
 {
-	this->state = State::opened;
 	this->depth = other.depth + 1;
 	this->board = Board(other.board);
 	children = vector<Node*>(this->getBoard().getSize() * (this->getBoard().getSize() - 1));
-}
-
-void Node::changeState()
-{
-	state = State::closed;
 }
 
 bool Node::IsSolved()
