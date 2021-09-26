@@ -9,6 +9,7 @@ Node::Node()
 	children = vector<Node*>(this->getBoard().getSize() * (this->getBoard().getSize() - 1));
 }
 
+
 Node::Node(Node& other)
 {
 	this->depth = other.depth + 1;
@@ -16,10 +17,12 @@ Node::Node(Node& other)
 	children = vector<Node*>(this->getBoard().getSize() * (this->getBoard().getSize() - 1));
 }
 
+
 bool Node::IsSolved()
 {
 	return this->board.conflictNumber() == 0; 
 }
+
 
 void Node::expand()
 {

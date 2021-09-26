@@ -17,6 +17,7 @@ Node* Tree::getRoot()
 	return this->root;
 }
 
+
 void Tree::IDS()
 {
 	int limit = 1;
@@ -29,6 +30,7 @@ void Tree::IDS()
 	cout << "All states: " << total_states << endl;
 	cout << "Memory states: " << memory_states << endl;
 }
+
 
 bool Tree::LDFS(Node* node, int& limit)
 {
@@ -48,8 +50,8 @@ bool Tree::LDFS(Node* node, int& limit)
 	if (node->getDepth() < limit)
 	{
 		node->expand();
-		memory_states += node->getChildren().size();
-		total_states += node->getChildren().size();
+		memory_states += 56;
+		total_states += 56;
 		for (size_t elem = 0; elem < node->getChildren().size(); elem++)
 		{
 			if (LDFS(node->getChildren()[elem], limit))
@@ -60,6 +62,7 @@ bool Tree::LDFS(Node* node, int& limit)
 	}
 	return false;
 }
+
 
 void Tree::AStar()
 {	
@@ -72,7 +75,6 @@ void Tree::AStar()
 		if (opened.top()->IsSolved())
 		{
 			opened.top()->getBoard().print();
-			cout << "Depth: " << opened.top()->getDepth() << endl;
 			break;
 		}
 

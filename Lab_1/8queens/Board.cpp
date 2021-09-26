@@ -11,7 +11,7 @@ bool Board::correctIndex(int i, int j)
 
 Board::Board()
 {
-    size = 4;
+    size = 8;
     matr = vector<vector<char>>(size);
 
     for (size_t i = 0; i < size; i++)
@@ -29,7 +29,16 @@ Board::Board()
 Board::Board(const Board& other)
 {
     this->size = other.size;
-    this->matr = other.matr;
+    this->matr = vector<vector<char>>(size);
+
+    for (size_t i = 0; i < size; i++)
+    {
+        for (size_t j = 0; j < size; j++)
+        {
+            this->matr[i].push_back(other.matr[i][j]);
+        }
+    }
+    conf = this->conflictNumber();
 }
 
 
@@ -40,37 +49,6 @@ void Board::generateQueens()
     {
         size_t j = rand() % size;
         matr[i][j] = '*';
-    }
-}
-
-
-char Board::getIndex(int i, int j)
-{
-    try
-    {
-        if (!correctIndex(i, j))
-            throw "Getting matrix index out of range";
-        return matr[i][j];
-        
-    }
-    catch (const char* exception)
-    {
-        std::cerr << "Error: " << exception << '\n';
-    }
-}
-
-
-void Board::setIndex(int i, int j, char value)
-{
-    try
-    {
-        if (!correctIndex(i, j))
-            throw "Setting matrix index out of range";
-        matr[i][j] = value;                    
-    }
-    catch (const char* exception)
-    {
-        std::cerr << "Error: " << exception << '\n';
     }
 }
 
