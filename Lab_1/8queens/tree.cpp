@@ -1,11 +1,14 @@
 #include "Tree.hpp"
 #include <queue>
 #include <algorithm>
+
 using namespace std;
 
 Tree::Tree()
 {
 	root = new Node();	
+	memory_states = total_states = 1;
+	iter = 0;
 }
 
 
@@ -19,18 +22,22 @@ void Tree::IDS()
 	int limit = 1;
 	while (!(LDFS(root, limit)))
 	{
-		++limit;
+		++limit; 
+		memory_states = 1;
 	}
+	cout << "Iterations: " << iter << endl;
+	cout << "All states: " << total_states << endl;
+	cout << "Memory states: " << memory_states << endl;
 }
 
 bool Tree::LDFS(Node* node, int& limit)
 {
-	node->getBoard().print();
-	cout << "Depth: " << node->getDepth() << endl;
-	cout << "Limit: " << limit << endl;
-	cout << "Conflicts: " << node->getBoard().conflictNumber() << endl << endl << endl << endl;
+	//node->getBoard().print();
+	//cout << "Depth: " << node->getDepth() << endl;
+	//cout << "Limit: " << limit << endl;
+	//cout << "Conflicts: " << node->getBoard().conflictNumber() << endl << endl << endl << endl;
 
-
+	++iter;
 	if (node->IsSolved())
 	{
 		node->getBoard().print();
@@ -41,6 +48,8 @@ bool Tree::LDFS(Node* node, int& limit)
 	if (node->getDepth() < limit)
 	{
 		node->expand();
+		memory_states += node->getChildren().size();
+		total_states += node->getChildren().size();
 		for (size_t elem = 0; elem < node->getChildren().size(); elem++)
 		{
 			if (LDFS(node->getChildren()[elem], limit))
@@ -53,18 +62,13 @@ bool Tree::LDFS(Node* node, int& limit)
 }
 
 void Tree::AStar()
-{
-	
+{	
 	priority_queue <Node*, vector<Node*>, mycompare> opened;
-	//typedef std::priority_queue<Node*, std::vector<Node*>, mycomparison> pq;
-	//pq opened(mycomparison(true));
 	vector<Board> closed;
 	opened.push(root);
+	int iter = 0, all_states = 0, memory_states = 0;
 	while (!opened.empty())
 	{
-		opened.top()->getBoard().print();
-		cout << "Depth: " << opened.top()->getDepth() << endl;
-
 		if (opened.top()->IsSolved())
 		{
 			opened.top()->getBoard().print();
@@ -88,5 +92,10 @@ void Tree::AStar()
 			
 			opened.push(temp[i]);
 		}
+		++iter;
 	}
+
+	cout << "Iterations: " << iter << endl;
+	cout << "All states: " << opened.size() + closed.size() << endl;
+	cout << "Memory states: " << opened.size() << endl;
 }

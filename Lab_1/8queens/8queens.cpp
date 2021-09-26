@@ -1,5 +1,4 @@
-﻿#include <iostream>
-#include "Tree.hpp"
+﻿#include "Tree.hpp"
 
 using namespace std;
 
@@ -7,7 +6,7 @@ int main()
 {
     Tree tree;
     tree.getRoot()->getBoard().print();
-    cout << tree.getRoot()->getBoard().conflictNumber() << endl;
-    tree.AStar();
+    cout << "Conflicts: " << tree.getRoot()->getBoard().conflictNumber() << endl << endl << endl;
+    tree.IDS();
     return 0;
 }

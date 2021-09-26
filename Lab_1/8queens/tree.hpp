@@ -8,6 +8,7 @@ using namespace std;
 class Tree
 {
 private:
+	int memory_states, total_states, iter;
 	Node* root;
 	bool LDFS(Node* root, int& depthLimit);
 public:
