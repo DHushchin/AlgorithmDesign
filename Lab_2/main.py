@@ -1,11 +1,16 @@
 from BTree import BTree
 
+
 def main():
-	B = BTree(5)
-	for i in range(20):
-		B.insert((i, str(2*i)))
-	B.print_tree(B.root)
-	print(B.search(7))
+    tree = BTree(3)
+
+    for i in range(10, 20):
+        tree.add((i, str(i*2)))
+        assert (tree.search((i, )))
+    tree.root.check_valid(tree)
+
+    tree.root.print_tree()
+
 
 if __name__ == '__main__':
-	main()
+    main()
