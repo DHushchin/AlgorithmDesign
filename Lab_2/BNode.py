@@ -38,6 +38,13 @@ class BNode:
 
         assert (self.values is not None)
 
+        # an inner node except the root has at least min_values
+        if not root_node and inner_node:
+            assert(tree.min_values <= len(self.values))
+
+        # a node can't have more than max_values
+        assert(len(self.values) <= tree.max_values)
+
         # The root has at least two children if it is not a leaf node.
         if root_node and inner_node:
             assert (len(self.children) >= 2)
@@ -49,7 +56,7 @@ class BNode:
         # check that values are sorted
         prev = None
         for i in self.values:
-            if prev:
+            if prev is not None:
                 assert (i > prev)
             prev = i
 
@@ -74,7 +81,7 @@ class BNode:
             assert (self.values[i][0] == val[0])  # the value already exists
             return True, self, i
 
-        if self.children:
+        if self.children is not None:
             assert (len(self.children) >= i and self.children[i])  # recursively search down the appropriate child node
             return self.children[i].search(val)
         return False, self, i
@@ -185,13 +192,14 @@ class BNode:
         """
         Delete a value from the B-tree. The value must exist.
         """
+        inner_node = self.children is not None
         if pos is None:
             assert (pos is not None)
             pos = bisect.bisect_left(self.values, val)
 
         assert (pos != len(self.values) and self.values[pos][0] == val[0])
 
-        if self.children:  # perform deletion from a leaf
+        if not inner_node:  # perform deletion from a leaf
             del self.values[pos]
             tree.size -= 1
             if len(self.values) < tree.min_values:
@@ -216,7 +224,7 @@ class BNode:
         if self.parent is None:  # this is a no-op for the root node
             return
 
-        is_inner_node = bool(self.children)
+        is_inner_node = self.children is not None
         if is_inner_node:  # conditions for rebalance
             assert (right_sibling is None or right_sibling.children is not None)
             assert (left_sibling is None or left_sibling.children is not None)
@@ -292,7 +300,8 @@ class BNode:
 
         assert self.parent.children
 
-        left_sibling = right_sibling = None
+        left_sibling = None
+        right_sibling = None
         sep_index = 0
 
         for i, j in enumerate(self.parent.children):

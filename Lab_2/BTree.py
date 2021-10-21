@@ -33,7 +33,9 @@ class BTree:
         if not found:  # the value doesn't exist, can't delete it
             print("Can't delete unexisted data. Please, try again.")
             return False
-        return node.delete(self, val, pos)
+        res = node.delete(self, val, pos)
+        self.root.write_to_file()
+        return res
 
     def search(self, val):
         return self.root.search(val)[0]
