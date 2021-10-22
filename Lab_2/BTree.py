@@ -1,10 +1,9 @@
 from BNode import BNode
-import os
 import re
+import math
 
 
 class BTree:
-
     def __init__(self, order):
         if order <= 2:
             raise ValueError("B-tree order must be at least 3")
@@ -20,7 +19,7 @@ class BTree:
         return f'BTree(height: {self.height}, items: {self.size}, order: {self.order})'
 
     def add(self, val):  # find the leaf node where the value should be added
-        found, node, pos = self.root.search(val)
+        found, node, pos, comp = self.root.search(val, 0)
         if found:  # the value already exists, can't add it twice
             print("The data already exists.")
             return False
@@ -29,7 +28,7 @@ class BTree:
         return res
 
     def delete(self, val):
-        found, node, pos = self.root.search(val)
+        found, node, pos, comp = self.root.search(val, 0)
         if not found:  # the value doesn't exist, can't delete it
             print("Can't delete unexisted data. Please, try again.")
             return False
@@ -38,17 +37,16 @@ class BTree:
         return res
 
     def search(self, val):
-        return self.root.search(val)[0]
+        res = self.root.search(val, 0)
+        print(f'Comparisons: {res[3]}')
+        if res[0]:
+            return res[1].values[res[2]]
+        return 'You are trying to delete unexisting key'
 
     def _read_file(self):
         with open('db.txt', 'r') as file:
-            print()
             for node in file.readlines():
-                for row in [re.findall(r'\d+', elem) for elem in re.findall(r'\((.*?)\)', node)]:
-                    for i in range(0, len(row), 2):
-                        self.add((int(row[i]), row[i + 1]))
-            print()
-
-
-
-
+                for elem in re.findall(r'\((.*?)\)', node):
+                    key = int(elem[0: elem.index(',')])
+                    value = elem[elem.index(',') + 1: -2]
+                    self.add((key, value))

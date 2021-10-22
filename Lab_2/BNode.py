@@ -1,5 +1,6 @@
 import bisect  # maintaining a list in sorted order without having to sort the list after each insertion
 import os
+import math
 
 class BNode:
     def __init__(self, values=None, children=None):
@@ -65,7 +66,7 @@ class BNode:
                 assert (i.parent is self)
                 i.check_valid(tree)
 
-    def search(self, val):
+    def search(self, val, comp: int):
         """
             Search for a value starting with this node.
 
@@ -76,15 +77,21 @@ class BNode:
             where 'node' is the node containing the value and 'pos' is the
             position of the value within that node.
         """
-        i = bisect.bisect_left(self.values, val)
+        i = bisect.bisect_left(self.values, val)  # binary search
+        if len(self.values) > 2:
+            if i < len(self.values) // 2:
+                comp += round(math.log(len(self.values) / (len(self.values[0:i+1])), 2))
+            else:
+                comp += round(math.log(len(self.values) / (len(self.values[i:len(self.values)]) + 1), 2))
+
         if i != len(self.values) and not val[0] < self.values[i][0]:
             assert (self.values[i][0] == val[0])  # the value already exists
-            return True, self, i
+            return True, self, i, comp
 
         if self.children is not None:
             assert (len(self.children) >= i and self.children[i])  # recursively search down the appropriate child node
-            return self.children[i].search(val)
-        return False, self, i
+            return self.children[i].search(val, comp)
+        return False, self, i, comp
 
     def _split_node(self, tree, val=None, pos=None, new_children=None):
         """

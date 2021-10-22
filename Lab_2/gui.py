@@ -156,12 +156,6 @@ class TreeEditor(tk.Tk):
     def search(self):
         self.validate()
         if self.key_value != '':
-            self.tree.delete((int(self.key_value), self.value))
-        else:
-            for i in range(int(self.from_value), int(self.to_value)):
-                self.tree.delete((i, self.value))
-
-
-if __name__ == "__main__":
-    app = TreeCreator()
-    app.mainloop()
+            messagebox.showinfo("Key", self.tree.search((int(self.key_value), )))
+            return
+        self.display_error('Enter key')
