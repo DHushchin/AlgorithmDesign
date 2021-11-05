@@ -1,0 +1,2 @@
+# B-Tree
+Software implementation of a small database, with search functions (binary search in the node structure), adding, deleting and editing records (record consists of key and data, keys are unique and integer, data can be several fields for one key, but only one line of fixed length). The B-tree structure is used for data storage. Tkinter library is used for creating GUI.  Program counts the average number of comparisons to find the record by key while searching.
