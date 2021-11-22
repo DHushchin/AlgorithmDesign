@@ -8,6 +8,7 @@ class RandCover
 private:
 	vector<vector<int>> adjMatrix;
 	int VertexNumber;
+	vector<int> VertexCover;
 private:
 	bool isEmpty();
 	void RandEdge(int& firstVertex, int& secondVertex);

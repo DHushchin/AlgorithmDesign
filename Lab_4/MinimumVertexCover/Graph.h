@@ -16,8 +16,8 @@ private:
 public:
     Graph();
     Graph(Graph& other);
+    void fillGraph();
     void printGraph();
-public:
     int getVertexNumber() const;
     vector<vector<int>> getAdjMatrix() const;
 };

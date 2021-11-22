@@ -16,6 +16,23 @@ Graph::Graph()
             this->adjMatrix[i].push_back(0);
         }
     }
+}
+
+Graph::Graph(Graph& other)
+{
+    this->VertexNumber = other.VertexNumber;
+    this->adjMatrix = vector<vector<int>>(VertexNumber);
+    for (int i = 0; i < VertexNumber; i++)
+    {
+        for (int j = 0; j < VertexNumber; j++)
+        {
+            this->adjMatrix[i].push_back(other.adjMatrix[i][j]);
+        }
+    }
+}
+
+void Graph::fillGraph()
+{
     int option;
     do {
         cout << "Choose option: \n 0 - random generation \n 1 - read from file" << endl << "Option: ";
@@ -34,19 +51,6 @@ Graph::Graph()
             cout << "Incorrect input. Try again!" << endl;
         }
     } while (option < 0 or option > 1);
-}
-
-Graph::Graph(Graph& other)
-{
-    this->VertexNumber = other.VertexNumber;
-    this->adjMatrix = vector<vector<int>>(VertexNumber);
-    for (int i = 0; i < VertexNumber; i++)
-    {
-        for (int j = 0; j < VertexNumber; j++)
-        {
-            this->adjMatrix[i].push_back(other.adjMatrix[i][j]);
-        }
-    }
 }
 
 

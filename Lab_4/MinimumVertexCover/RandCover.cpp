@@ -3,6 +3,18 @@
 using namespace std;
 
 
+RandCover::RandCover(Graph& other)
+{
+	this->adjMatrix = other.getAdjMatrix();
+	this->VertexNumber = other.getVertexNumber();
+	this->VertexCover = vector<int>();
+	for (int i = 0; i < VertexNumber; i++)
+	{
+		VertexCover.push_back(0);
+	}
+}
+
+
 void RandCover::RandEdge(int& firstVertex, int& secondVertex)
 {
 	while (true)
@@ -37,13 +49,6 @@ bool RandCover::isEmpty()
 }
 
 
-RandCover::RandCover(Graph& other)
-{
-	this->adjMatrix = other.getAdjMatrix();
-	this->VertexNumber = other.getVertexNumber();
-}
-
-
 void RandCover::RemoveIncident(int& firstVertex, int& secondVertex)
 {
 	for (int i = 0; i < this->VertexNumber; i++)
@@ -58,14 +63,13 @@ void RandCover::RemoveIncident(int& firstVertex, int& secondVertex)
 
 vector<int> RandCover::Solve()
 {
-	vector<int> VertexCover;
 	while (!this->isEmpty())
 	{
 		int firstVertex, secondVertex;
 		this->RandEdge(firstVertex, secondVertex);
 		// add to solution
-		VertexCover.push_back(firstVertex);
-		VertexCover.push_back(secondVertex);
+		VertexCover[firstVertex] = 1;
+		VertexCover[secondVertex] = 1;
 		this->RemoveIncident(firstVertex, secondVertex);
 	}
 	return VertexCover;
