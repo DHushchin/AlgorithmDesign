@@ -3,18 +3,6 @@
 using namespace std;
 
 
-RandCover::RandCover(Graph& other)
-{
-	this->adjMatrix = other.getAdjMatrix();
-	this->VertexNumber = other.getVertexNumber();
-	this->VertexCover = vector<int>();
-	for (int i = 0; i < VertexNumber; i++)
-	{
-		VertexCover.push_back(0);
-	}
-}
-
-
 void RandCover::RandEdge(int& firstVertex, int& secondVertex)
 {
 	while (true)
@@ -32,7 +20,6 @@ void RandCover::RandEdge(int& firstVertex, int& secondVertex)
 	}
 }
 
-
 bool RandCover::isEmpty()
 {
 	for (int i = 0; i < VertexNumber; i++)
@@ -48,6 +35,14 @@ bool RandCover::isEmpty()
 	return true;
 }
 
+void RandCover::RemoveIncident(int& vertex)
+{
+	for (int i = 0; i < this->VertexNumber; i++)
+	{
+		this->adjMatrix[vertex][i] = 0;
+		this->adjMatrix[i][vertex] = 0;
+	}
+}
 
 void RandCover::RemoveIncident(int& firstVertex, int& secondVertex)
 {
@@ -60,6 +55,28 @@ void RandCover::RemoveIncident(int& firstVertex, int& secondVertex)
 	}
 }
 
+RandCover::RandCover(Graph& other)
+{
+	this->adjMatrix = other.getAdjMatrix();
+	this->VertexNumber = other.getVertexNumber();
+	this->VertexCover = vector<int>();
+	for (int i = 0; i < VertexNumber; i++)
+	{
+		VertexCover.push_back(0);
+	}
+}
+
+bool RandCover::isCorrectCover(vector<int> solution)
+{
+	for (int i = 0; i < solution.size(); i++)
+	{
+		if (solution[i] == 1)
+		{
+			this->RemoveIncident(i);
+		}
+	}
+	return this->isEmpty();
+}
 
 vector<int> RandCover::Solve()
 {

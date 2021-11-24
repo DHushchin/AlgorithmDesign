@@ -53,7 +53,6 @@ void Graph::fillGraph()
     } while (option < 0 or option > 1);
 }
 
-
 void Graph::addEdge(int& first, int& second)
 {
     if (0 <= first < VertexNumber && 0 <= second < VertexNumber && first != second)
@@ -64,7 +63,6 @@ void Graph::addEdge(int& first, int& second)
     }
     cout << "Input error!" << endl;
 }
-
 
 void Graph::randGraph()
 {
@@ -90,7 +88,6 @@ void Graph::randGraph()
     }
 }
 
-
 void Graph::readGraph()
 {
     ifstream file;
@@ -107,7 +104,6 @@ void Graph::readGraph()
     file.close();
 }
 
-
 void Graph::saveGraph()
 {
     ofstream file;
@@ -121,7 +117,6 @@ void Graph::saveGraph()
     file.close();
 }
 
-
 void Graph::printGraph()
 {
     for (int i = 0; i < VertexNumber; i++) {
@@ -134,15 +129,12 @@ void Graph::printGraph()
     }
 }
 
-
 int Graph::getVertexNumber() const
 {
     return VertexNumber;
 }
 
-
 vector<vector<int>> Graph::getAdjMatrix() const
 {
     return adjMatrix;
 }
-
