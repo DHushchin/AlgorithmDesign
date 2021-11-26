@@ -142,12 +142,12 @@
     <ClCompile Include="GeneticAlgorithm.cpp" />
     <ClCompile Include="Graph.cpp" />
     <ClCompile Include="MinimumVertexCover.cpp" />
-    <ClCompile Include="RandCover.cpp" />
+    <ClCompile Include="VertexCover.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GeneticAlgorithm.h" />
     <ClInclude Include="Graph.h" />
-    <ClInclude Include="RandCover.h" />
+    <ClInclude Include="VertexCover.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

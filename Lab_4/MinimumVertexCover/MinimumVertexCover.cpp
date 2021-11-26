@@ -8,6 +8,6 @@ int main()
     Graph graph;
     graph.fillGraph();
     GenAlgo algo(graph);
-    algo.Solve();
+    algo.TestAlgo();
     return 0;
 }

@@ -40,7 +40,7 @@ void Graph::fillGraph()
         if (option == 0)
         {
             this->randGraph();
-            // this->saveGraph();
+            this->saveGraph();
         }
         else if (option == 1)
         {
@@ -137,4 +137,27 @@ int Graph::getVertexNumber() const
 vector<vector<int>> Graph::getAdjMatrix() const
 {
     return adjMatrix;
+}
+
+int Graph::getMaxDegreeVertex()
+{
+    pair<int, int> vert;
+    vert.first = vert.second = 0;
+    for (int i = 0; i < this->adjMatrix.size(); i++)
+    {
+        int count = 0;
+        for (int j = 0; j < this->adjMatrix[i].size(); j++)
+        {
+            if (this->adjMatrix[i][j] == 1)
+            {
+                ++count;
+            }
+        }
+        if (count > vert.first)
+        {
+            vert.first = count;
+            vert.second = i;
+        }
+    }
+    return vert.second;
 }

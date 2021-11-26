@@ -20,5 +20,6 @@ public:
     void printGraph();
     int getVertexNumber() const;
     vector<vector<int>> getAdjMatrix() const;
+    int getMaxDegreeVertex();
 };
 
