@@ -203,20 +203,37 @@ void GenAlgo::SwapMutation(vector<pair<int, vector<int>>>& children)
 
 void GenAlgo::AdjacentImprovement(vector<pair<int, vector<int>>>& children)
 {
-	for (int i = 0; i < children.size(); i++)
+	int size = children.size();
+	for (int i = 0; i < size; i++)
 	{
 		pair<int, vector<int>> temp(children[i]);
-		temp.second[rand() % this->graph.getAdjMatrix().size()] = 1;
+
+		if (temp.first == 0)
+		{
+			continue;
+		}
+
+		for (int j = 0; j < this->graph.getAdjMatrix().size(); j++)
+		{
+			if (this->graph.getAdjMatrix()[i][j] == 1)
+			{
+				temp.second[j] = 1;
+				break;
+			}
+		}
+		temp.first++;
 		children.push_back(temp);
 	}
 }
 
 void GenAlgo::GreedyImprovement(vector<pair<int, vector<int>>>& children)
 {
-	for (int i = 0; i < children.size(); i++)
+	int size = children.size();
+	for (int i = 0; i < size; i++)
 	{
 		pair<int, vector<int>> temp(children[i]);
 		temp.second[this->graph.getMaxDegreeVertex()] = 1;
+		temp.first++;
 		children.push_back(temp);
 	}
 }
@@ -261,10 +278,11 @@ int GenAlgo::Solve(void (GenAlgo::* crossoverPtr)(vector<pair<int, vector<int>>>
 		this->TournamentSelection(first, second);
 		(this->*crossoverPtr)(children, first, second);
 		(this->*mutationPtr)(children);
+		(this->*improvementPtr)(children);
 		this->CorrectChildren(children);
 		this->ReplaceParents(children);
 		bestSol = this->BestSolution();
-		if (k % 100 == 0)
+		if (k % 200 == 0)
 		{
 			cout << bestSol.first << endl;
 		}
@@ -340,6 +358,7 @@ void GenAlgo::TestMutation(void (GenAlgo::* crossoverPtr)(vector<pair<int, vecto
 		this->BestMutation = "SwapMutation";
 	}
 }
+
 
 void GenAlgo::TestLocalImprovement(void(GenAlgo::* crossoverPtr)(vector<pair<int, vector<int>>>&, vector<int>&, vector<int>&), void(GenAlgo::* mutationPtr)(vector<pair<int, vector<int>>>&), void(GenAlgo::* improvementPtr)(vector<pair<int, vector<int>>>&))
 {

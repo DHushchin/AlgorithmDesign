@@ -9,6 +9,6 @@ int main()
     tree.getRoot()->getBoard().print();
     cout << "Conflicts: " << tree.getRoot()->getBoard().conflictNumber() << endl << endl << endl;
     cout << "Result state: " << endl;
-    tree.IDS();
+    tree.AStar();
     return 0;
 }

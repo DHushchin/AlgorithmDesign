@@ -7,9 +7,10 @@
 
 namespace Sonar
 {
-	GameOverState::GameOverState(GameDataRef data) : _data(data)
+	GameOverState::GameOverState(GameDataRef data, int gameState)
 	{
-
+		this->_data = data;
+		this->_gameState = gameState;
 	}
 
 	void GameOverState::Init()
@@ -20,10 +21,23 @@ namespace Sonar
 		this->_retryButton.setTexture(this->_data->assets.GetTexture("Retry Button"));
 		this->_homeButton.setTexture(this->_data->assets.GetTexture("Home Button"));
 
-		this->_retryButton.setPosition(this->_data->window.getSize().x / 2 - this->_retryButton.getLocalBounds().width / 2,
-			this->_data->window.getSize().y / 3 - this->_retryButton.getLocalBounds().height / 2);
-		this->_homeButton.setPosition(this->_data->window.getSize().x / 2 - this->_homeButton.getLocalBounds().width / 2,
-			this->_data->window.getSize().y / 3 * 2 - this->_homeButton.getLocalBounds().height / 2);
+		if (this->_gameState == STATE_WON)
+		{
+			this->_data->assets.LoadTexture("You Won", SPRITE_WON_FILEPATH);
+			this->_result.setTexture(this->_data->assets.GetTexture("You Won"));
+		}
+		else
+		{
+			this->_data->assets.LoadTexture("You Lose", SPRITE_LOSE_FILEPATH);
+			this->_result.setTexture(this->_data->assets.GetTexture("You Lose"));
+		}
+
+		this->_retryButton.setPosition(this->_data->window.getSize().x / 2 - this->_retryButton.getLocalBounds().width / 2 - 170,
+			                           this->_data->window.getSize().y / 2 + this->_retryButton.getLocalBounds().height / 2);
+		this->_homeButton.setPosition(this->_data->window.getSize().x / 2 - this->_homeButton.getLocalBounds().width / 2 + 170,
+			                          this->_data->window.getSize().y / 2 + this->_homeButton.getLocalBounds().height / 2);
+		this->_result.setPosition(this->_data->window.getSize().x / 2 - this->_result.getLocalBounds().width / 2,
+			                      this->_data->window.getSize().y / 2 - this->_result.getLocalBounds().height * 1.5);
 	}
 
 	void GameOverState::HandleInput()
@@ -53,9 +67,10 @@ namespace Sonar
 
 	void GameOverState::Draw(float dt)
 	{
-		this->_data->window.clear(sf::Color::Red);
+		this->_data->window.clear(sf::Color(255, 36, 70, 1));
 		this->_data->window.draw(this->_retryButton);
 		this->_data->window.draw(this->_homeButton);
+		this->_data->window.draw(this->_result);
 		this->_data->window.display();
 	}
 

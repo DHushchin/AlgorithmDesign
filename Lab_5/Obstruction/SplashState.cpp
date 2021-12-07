@@ -36,8 +36,6 @@ namespace Sonar
 	{
 		if (this->_clock.getElapsedTime().asSeconds() > SPLASH_STATE_SHOW_TIME)
 		{
-			// Switch to Main Menu
-			std::cout << "Go to Main Window" << std::endl;
 			this->_data->machine.AddState(StateRef(new MainMenuState(_data)), true);
 		}
 	}

@@ -21,7 +21,7 @@ namespace Sonar
 		this->_data->assets.LoadTexture("Grid Sprite", GRID_SPRITE_FILEPATH);
 		this->_data->assets.LoadTexture("X Piece", X_PIECE_FILEPATH);
 		this->_data->assets.LoadTexture("O Piece", O_PIECE_FILEPATH);
-		this->_data->assets.LoadTexture("O Win", O_WINNING_PIECE_FILEPATH);
+		this->_data->assets.LoadTexture("Block Piece", BLOCK_PIECE);
 
 		_background.setTexture(this->_data->assets.GetTexture("Background"));
 		_pauseButton.setTexture(this->_data->assets.GetTexture("Pause Button"));
@@ -64,7 +64,7 @@ namespace Sonar
 		{
 			if (this->_clock.getElapsedTime().asSeconds() > TIME_BEFORE_SHOWING_GAME_OVER)
 			{
-				this->_data->machine.AddState(StateRef(new GameOverState(_data)), true);
+				this->_data->machine.AddState(StateRef(new GameOverState(_data, gameState)), true);
 			}
 		}
 	}
@@ -149,14 +149,13 @@ namespace Sonar
 					if (i >= 0 && i <= 7 && j >= 0 && j <= 7)
 					{
 						_gridPieces[i][j].setColor(sf::Color(255, 255, 255, 255));
-						_gridPieces[i][j].setTexture(this->_data->assets.GetTexture("O Win"));
-						gridArray[i][j] = BLOCKED_PIECE;
-
 						if (i == column && j == row)
 						{
 							gridArray[i][j] = BLOCKED_PIECE;
 							continue;
 						}
+						_gridPieces[i][j].setTexture(this->_data->assets.GetTexture("Block Piece"));
+						gridArray[i][j] = BLOCKED_PIECE;
 					}
 				}
 			}

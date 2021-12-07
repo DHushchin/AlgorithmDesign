@@ -20,8 +20,7 @@
 
 #define X_PIECE_FILEPATH "Resources\\res\\X.png"
 #define O_PIECE_FILEPATH "Resources\\res\\O.png"
-#define X_WINNING_PIECE_FILEPATH "Resources\\res\\X win.png"
-#define O_WINNING_PIECE_FILEPATH "Resources\\res\\O win.png"
+#define BLOCK_PIECE "Resources\\res\\Block.png"
 
 #define GRID_SPRITE_FILEPATH "Resources\\res\\Grid.png"
 
@@ -40,3 +39,5 @@
 #define STATE_AI_PLAYING 93
 
 #define TIME_BEFORE_SHOWING_GAME_OVER 1
+#define SPRITE_WON_FILEPATH "Resources\\res\\Win.png"
+#define SPRITE_LOSE_FILEPATH "Resources\\res\\Lose.png"
