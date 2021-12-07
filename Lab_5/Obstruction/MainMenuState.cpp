@@ -2,7 +2,7 @@
 #include <iostream>
 #include "MainMenuState.hpp"
 #include "DEFINITIONS.hpp"
-
+#include "GameState.hpp"
 
 namespace Sonar
 {
@@ -40,7 +40,7 @@ namespace Sonar
 			}
 			if (this->_data->input.isSpriteClicked(this->_playButton, sf::Mouse::Left, this->_data->window))
 			{
-				std::cout << "Go to Game Screen" << std::endl;
+				this->_data->machine.AddState(StateRef(new GameState(_data)), true);
 			}
 		}
 	}

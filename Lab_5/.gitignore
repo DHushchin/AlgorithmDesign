@@ -425,3 +425,5 @@ FodyWeavers.xsd
 *.tlog
 
 *.txt
+*.doc
+*.docx
