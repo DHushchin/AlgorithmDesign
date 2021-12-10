@@ -73,5 +73,4 @@ namespace Sonar
 		this->_data->window.draw(this->_result);
 		this->_data->window.display();
 	}
-
 }

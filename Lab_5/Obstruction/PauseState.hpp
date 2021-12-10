@@ -21,4 +21,3 @@ namespace Sonar
 		sf::Sprite _homeButton;
 	};
 }
-

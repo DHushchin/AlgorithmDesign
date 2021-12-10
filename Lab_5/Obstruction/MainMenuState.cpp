@@ -6,9 +6,9 @@
 
 namespace Sonar
 {
-	MainMenuState::MainMenuState(GameDataRef data) : _data(data)
+	MainMenuState::MainMenuState(GameDataRef data)
 	{
-
+		this->_data = data;
 	}
 
 	void MainMenuState::Init()
@@ -59,5 +59,4 @@ namespace Sonar
 		this->_data->window.draw(this->_title);
 		this->_data->window.display();
 	}
-
 }

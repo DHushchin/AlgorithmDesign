@@ -31,5 +31,4 @@ namespace Sonar
 	{
 		return this->_fonts.at(name);
 	}
-
 }

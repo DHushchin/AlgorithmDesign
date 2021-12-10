@@ -6,9 +6,9 @@
 
 namespace Sonar
 {
-	SplashState::SplashState(GameDataRef data) : _data(data)
+	SplashState::SplashState(GameDataRef data)
 	{
-
+		this->_data = data;
 	}
 
 	void SplashState::Init()

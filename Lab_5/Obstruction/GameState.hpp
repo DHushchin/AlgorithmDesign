@@ -33,5 +33,3 @@ namespace Sonar
 		AI* ai;
 	};
 }
-
-

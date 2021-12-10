@@ -22,4 +22,3 @@ namespace Sonar
 		sf::Sprite _title;
 	};
 }
-

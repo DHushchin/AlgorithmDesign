@@ -7,9 +7,9 @@
 
 namespace Sonar
 {
-	PauseState::PauseState(GameDataRef data) : _data(data)
+	PauseState::PauseState(GameDataRef data)
 	{
-
+		this->_data = data;
 	}
 
 	void PauseState::Init()
