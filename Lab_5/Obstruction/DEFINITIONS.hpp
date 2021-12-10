@@ -38,4 +38,5 @@
 #define SPRITE_LOSE_FILEPATH "Resources\\Lose.png"
 
 #define INF 64
-#define INITIAL_DEPTH 3
+#define INITIAL_DEPTH 5
+#define CHILDREN_NUMBER 10
