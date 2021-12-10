@@ -8,15 +8,16 @@
 
 namespace Sonar
 {
-	GameState::GameState(GameDataRef data) : _data(data)
+	GameState::GameState(GameDataRef data)
 	{
-
+		this->_data = data;
 	}
 
 	void GameState::Init()
 	{
 		gameState = STATE_PLAYING;
-		turn = PLAYER_PIECE;
+
+		this->ai = new AI(this->_data);
 		this->_data->assets.LoadTexture("Pause Button", PAUSE_BUTTON);
 		this->_data->assets.LoadTexture("Grid Sprite", GRID_SPRITE_FILEPATH);
 		this->_data->assets.LoadTexture("X Piece", X_PIECE_FILEPATH);
@@ -33,7 +34,7 @@ namespace Sonar
 		{
 			for (int y = 0; y < 8; y++)
 			{
-				gridArray[x][y] = EMPTY_PIECE;
+				_gridArray[x][y] = EMPTY_PIECE;
 			}
 		}
 	}
@@ -129,46 +130,50 @@ namespace Sonar
 			}
 		}
 		
-		if (gridArray[column][row] == EMPTY_PIECE)
+		if (_gridArray[column][row] == EMPTY_PIECE)
 		{
-			if (PLAYER_PIECE == turn)
-			{
-				_gridPieces[column][row].setTexture(this->_data->assets.GetTexture("X Piece"));
-				turn = AI_PIECE;
-			}
-			else if (AI_PIECE == turn)
-			{
-				_gridPieces[column][row].setTexture(this->_data->assets.GetTexture("O Piece"));
-				turn = PLAYER_PIECE;
-			}
 
-			for (int i = column - 1; i < column + 2; i++)
-			{
-				for (int j = row - 1; j < row + 2; j++)
-				{
-					if (i >= 0 && i <= 7 && j >= 0 && j <= 7)
-					{
-						_gridPieces[i][j].setColor(sf::Color(255, 255, 255, 255));
-						if (i == column && j == row)
-						{
-							gridArray[i][j] = BLOCKED_PIECE;
-							continue;
-						}
-						_gridPieces[i][j].setTexture(this->_data->assets.GetTexture("Block Piece"));
-						gridArray[i][j] = BLOCKED_PIECE;
-					}
-				}
-			}
-
-			this->CheckPlayerWon(turn);
+			_gridPieces[column][row].setTexture(this->_data->assets.GetTexture("X Piece"));
+			_gridArray[column][row] = BLOCKED_PIECE;
+			this->ColorAround(column, row);
+			gameState = STATE_AI_PLAYING;
+			this->CheckPlayerWon();
 		}
 	}
 
-	void GameState::CheckPlayerWon(int player)
+	void GameState::CheckPlayerWon()
 	{
-		if (this->CheckEmptyPieces())
+		CheckGameOver();
+		
+		if (gameState == STATE_AI_PLAYING)
 		{
-			if (player == PLAYER_PIECE)
+			int col = -1, row = -1;
+
+			int tempGrid[8][8];
+			for (int i = 0; i < 8; i++)
+			{
+				for (int j = 0; j < 8; j++)
+				{
+					tempGrid[i][j] = this->_gridArray[i][j];
+				}
+			}
+			
+			ai->PlacePiece(tempGrid, col, row);
+
+			gameState = STATE_PLAYING;
+
+			this->_gridArray[col][row] = BLOCKED_PIECE;
+			this->ColorAround(col, row);
+			this->_gridPieces[col][row].setTexture(this->_data->assets.GetTexture("O Piece"));
+			CheckGameOver();
+		}
+	}
+
+	void GameState::CheckGameOver()
+	{
+		if (!this->CheckEmptyPieces())
+		{
+			if (this->gameState == STATE_PLAYING)
 			{
 				gameState = STATE_LOSE;
 			}
@@ -187,13 +192,34 @@ namespace Sonar
 		{
 			for (int j = 0; j < 8; j++)
 			{
-				if (gridArray[i][j] != BLOCKED_PIECE)
+				if (this->_gridArray[i][j] != BLOCKED_PIECE)
 				{
-					return false;
+					return true;
 				}
 			}
 		}
-		return true;
+		return false;
+	}
+
+	void GameState::ColorAround(int c, int r)
+	{
+		for (int i = c - 1; i < c + 2; i++)
+		{
+			for (int j = r - 1; j < r + 2; j++)
+			{
+				if (i >= 0 && i <= 7 && j >= 0 && j <= 7)
+				{
+					this->_gridPieces[i][j].setColor(sf::Color(255, 255, 255, 255));
+					this->_gridArray[i][j] = BLOCKED_PIECE;
+					if (i == c && j == r)
+					{
+						continue;
+					}
+					this->_gridPieces[i][j].setTexture(this->_data->assets.GetTexture("Block Piece"));
+
+				}
+			}
+		}
 	}
 
 }
