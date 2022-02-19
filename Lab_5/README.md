@@ -1,4 +1,4 @@
-## Description 
+## Project 
 
  Application for the [Obstruction](http://www.papg.com/show?2XMX) game with a computer opponent. The alpha-beta pruning algorithm is used to implement the strategy of the computer opponent's game.
  
