@@ -1,10 +1,4 @@
-## Description 
-
- Application for the [Dice game](https://gamerules.ru/baksy).
- 
-## Rules
-
-**Name:** Dice game
+## Application for the [Dice game](https://gamerules.ru/baksy).
 
 **Players:** This is a game for any number of players using three dice.
 
